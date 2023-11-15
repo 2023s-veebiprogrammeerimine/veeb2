@@ -75,6 +75,26 @@ app.get('/eestifilm/lisapersoon', (req, res)=>{
 	res.render('eestifilmaddperson');
 });
 
+app.get('/news', (req,res)=> {
+	res.render('news');
+});
+
+
+app.get('/news/add', (req,res)=> {
+	res.render('addnews');
+});
+
+app.get('/news/read', (req,res)=> {
+	res.render('readnews');
+});
+
+app.get('/news/read/:id', (req,res)=> {
+	//res.render('readnews');
+	console.log(req.params);
+	console.log(req.query);
+	res.send('Vaatame uudist, mille id on: ' + req.params.id);
+});
+
 app.post('/eestifilm/lisapersoon', (req, res)=>{
 	console.log(req.body);
 	let notice = '';
