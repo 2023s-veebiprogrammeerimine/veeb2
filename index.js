@@ -149,6 +149,7 @@ app.post('/photoupload', upload.single('photoInput'), (req, res)=> {
 });
 
 app.get('/photogallery', (req, res)=> {
+	
 	res.render('photogallery');
 });
 
