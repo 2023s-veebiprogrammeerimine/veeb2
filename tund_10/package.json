@@ -1,0 +1,35 @@
+{
+  "name": "vp23",
+  "version": "1.0.0",
+  "description": "veebiprogrammeerise kursuse käigus loodud veeb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://andrusrinde@github.com/2023s-veebiprogrammeerimine/veeb2.git"
+  },
+  "keywords": [
+    "veebiprogrammeerimine",
+    "NodeJs",
+    "ExpressJs",
+    "Tallinna",
+    "Ülikool"
+  ],
+  "author": "Andrus Rinde",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2023s-veebiprogrammeerimine/veeb2/issues"
+  },
+  "homepage": "https://github.com/2023s-veebiprogrammeerimine/veeb2#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mime": "^3.0.0",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.6.2",
+    "sharp": "^0.32.6"
+  }
+}

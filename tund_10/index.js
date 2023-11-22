@@ -133,7 +133,7 @@ app.post('/photoupload', upload.single('photoInput'), (req, res)=> {
 	
 	let sql = 'INSERT INTO vp_gallery (filename, originalname, alttext, privacy, userid) VALUES (?,?,?,?,?)';
 	const userid = 1;
-	connection.execute(sql, [fileName, req.file.originalname, req.body.altInput, req.body.privacyInput, userid], (err, result)=>{
+	connection.query(sql, [fileName, req.file.originalname, req.body.altInput, req.body.privacyInput, userid], (err, result)=>{
 		if(err) {
 			throw err;
 			notice = 'Foto andmete salvestamine ebaõnnestus!' + err;
@@ -149,19 +149,8 @@ app.post('/photoupload', upload.single('photoInput'), (req, res)=> {
 });
 
 app.get('/photogallery', (req, res)=> {
-	let photoList = [];
-	let sql = 'SELECT id,filename,alttext FROM vp_gallery WHERE privacy > 1 AND deleted IS NULL ORDER BY id DESC';
-	connection.execute(sql, (err,result)=>{
-		if (err){
-			throw err;
-			res.render('photogallery', {photoList : photoList});
-		}
-		else {
-			photoList = result;
-			console.log(result);
-			res.render('photogallery', {photoList : photoList});
-		}
-	});
+	
+	res.render('photogallery');
 });
 
 app.post('/eestifilm/lisapersoon', (req, res)=>{
