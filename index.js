@@ -12,6 +12,7 @@ const multer = require('multer');
 const upload = multer({dest: './public/gallery/orig/'});
 const mime = require('mime');
 const sharp = require('sharp');
+const async = require('async');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -89,6 +90,47 @@ app.get('/eestifilm/lisapersoon', (req, res)=>{
 	res.render('eestifilmaddperson');
 });
 
+app.get('/eestifilm/lisaseos', (req, res)=>{
+	//res.send('See töötab!');
+	//paneme async mooduli abil mitu asja korraga tööle
+	//1) loome tegevuste loendi
+	const myQueries = [
+		function(callback){
+			conn.execute('SELECT id,title from movie', (err, result)=>{
+				if(err) {
+					return callback(err);
+				}
+				else {
+					return callback(null, result);
+				}
+			});
+		},
+		function(callback){
+			conn.execute('SELECT id,first_name, last_name from person', (err, result)=>{
+				if(err) {
+					return callback(err);
+				}
+				else {
+					return callback(null, result);
+				}
+			});
+		}
+	];
+	//paneme need tegevused asünkroonselt paralleelselt tööle
+	async.parallel(myQueries, (err, results)=>{
+		if (err) {
+			throw err;
+		}
+		else {
+			console.log(results);
+			//mis kõik teha, ka render osa vajalike tükkidega
+		}
+	});
+	
+	
+	res.render('eestifilmaddrelation');
+});
+
 app.get('/news', (req,res)=> {
 	res.render('news');
 });
@@ -158,7 +200,7 @@ app.get('/photogallery', (req, res)=> {
 		}
 		else {
 			photoList = result;
-			console.log(result);
+			//console.log(result);
 			res.render('photogallery', {photoList : photoList});
 		}
 	});
