@@ -41,22 +41,6 @@ app.get('/', (req, res)=>{
 	res.render('index');
 });
 
-app.get('/signup', (req, res)=>{
-	res.render('signup');
-});
-
-app.post('/signup', (req, res)=>{
-	console.log(req.body);
-	// javascript AND ->   &&    OR ->   ||
-	if(!req.body.firstNameInput || !req.body.lastNameInput || !req.body.genderInput || !req.body.birthInput || !req.body.emailInput || !req.body.passwordInput || req.body.passwordInput.length < 8 || req.body.passwordInput !== req.body.confirmPasswordInput){
-		console.log('andmeid puudu või sobimatud!');
-	}
-	else {
-		console.log('OK!');
-	}
-	res.render('signup');
-});
-
 app.get('/timenow', (req, res)=>{
 	const dateNow = dateInfo.dateNowET();
 	const timeNow = dateInfo.timeNowET();
@@ -138,7 +122,7 @@ app.get('/eestifilm/lisaseos', (req, res)=>{
 			throw err;
 		}
 		else {
-			//console.log(results);
+			console.log(results);
 			//mis kõik teha, ka render osa vajalike tükkidega
 		}
 	});

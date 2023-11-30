@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Andrus Rinde, veebiprogrammeerimine 2023</title>
+</head>
+<body>
+	<img src="/banner/banner.png" alt="veebiprogrammeerimise kursuse banner">
+	<h1>Kasutajakonto</h1>
+	<ul>
+		<li><a href="/">Avalehele</a></li>
+	</ul>
+	<hr>
+	<h2>Kasutajakonto loomine</h2>
+	<form method="POST">
+		<label for="firstNameInput">Eesnimi</label>
+		<input type="text" name="firstNameInput" id="firstNameInput" placeholder="Sinu eesnimi ...">
+		<br>
+		<label for="lastNameInput">Perekonnanimi</label>
+		<input type="text" name="lastNameInput" id="lastNameInput" placeholder="Sinu perekonnanimi ...">
+		<br>
+		<input type="radio" name="genderInput" id="genderInput1" value="1" checked>
+		<label for="genderInput1">Mees</label>
+		<input type="radio" name="genderInput" id="genderInput2" value="2">
+		<label for="genderInput2">Naine</label>
+		<br>
+		<label for="birthInput">Sünnikuupäev</label>
+		<input type="date" name="birthInput" id="birthInput">
+		<br>
+		<label for="emailInput">E-mail (kasutajatunnus)</label>
+		<input type="email" name="emailInput" id="emailInput">
+		<br>
+		<label for="passwordInput">Salasõna (min 8 märki)</label>
+		<input type="password" name="passwordInput" id="passwordInput">
+		<br>
+		<label for="confirmPasswordInput">Korda salasõna</label>
+		<input type="password" name="confirmPasswordInput" id="confirmPasswordInput">
+		<br>
+		<input type="submit" name="userSubmit" value="Loo kasutajakonto">
+	</form>
+</body>
+</html>
