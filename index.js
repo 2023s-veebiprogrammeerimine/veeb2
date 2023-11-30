@@ -10,9 +10,11 @@ const dataBase = 'if23_rinde';
 const multer = require('multer');
 //seame multer jaoks vahevara, mis määrab üleslaadimise kataloogi
 const upload = multer({dest: './public/gallery/orig/'});
-const mime = require('mime');
+const mime = require('mime');//pigem 'file-type'
 const sharp = require('sharp');
 const async = require('async');
+//krüpteerimiseks
+const bcrypt = require('bcrypt');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -46,15 +48,34 @@ app.get('/signup', (req, res)=>{
 });
 
 app.post('/signup', (req, res)=>{
+	let notice = 'Ootel!';
 	console.log(req.body);
 	// javascript AND ->   &&    OR ->   ||
 	if(!req.body.firstNameInput || !req.body.lastNameInput || !req.body.genderInput || !req.body.birthInput || !req.body.emailInput || !req.body.passwordInput || req.body.passwordInput.length < 8 || req.body.passwordInput !== req.body.confirmPasswordInput){
 		console.log('andmeid puudu või sobimatud!');
+		notice = 'Andmeid puudu või sobimatud!';
+		res.render('signup', {notice: notice});
 	}
 	else {
 		console.log('OK!');
+		notice = 'Ok!';
+		//"soolame" ja krüpteerime parooli
+		bcrypt.genSalt(10, (err, salt)=>{
+			bcrypt.hash(req.body.passwordInput, salt, (err, pwdHash)=>{
+				let sql = 'INSERT INTO vp_users (firstname, lastname, birthdate, gender, email, password) VALUES(?,?,?,?,?,?)';
+				connection.execute(sql, [req.body.firstNameInput, req.body.lastNameInput, req.body.birthInput, req.body.genderInput, req.body.emailInput, pwdHash], (err, result)=>{
+					if(err){
+						notice = 'Andmete salvestamine ebaõnnestus!';
+						res.render('signup', {notice: notice});
+					}
+					else {
+						notice = 'Kasutaja ' + req.body.emailInput + ' lisamine õnnestus!';
+						res.render('signup', {notice: notice});
+					}
+				});
+			});
+		});		
 	}
-	res.render('signup');
 });
 
 app.get('/timenow', (req, res)=>{
